@@ -1,0 +1,25 @@
+{
+  "issues": [
+    {
+      "level": "warning",
+      "message": "2 approval gate(s) must be acknowledged before execution."
+    },
+    {
+      "level": "warning",
+      "message": "No explicit verification commands were captured in the source trace."
+    }
+  ],
+  "missingInputs": [],
+  "ok": true,
+  "renderedSteps": [
+    "Draft the weekly report in reports/weekly-2026-04-01.md from https://status.example.com and get approval before git commit.",
+    "Draft the weekly report in reports/weekly-2026-04-01.md from https://status.example.com.",
+    "Fetch https://status.example.com",
+    "Modify reports/weekly-2026-04-01.md with {\n  \"content\": \"# Weekly Report\\n\\nSummarize incidents and uptime.\",\n  \"path\": \"reports/weekly-2026-04-01.md\"\n}",
+    "Request approval: Approve the generated report before making a commit.",
+    "Run command: git commit -am \"weekly report\""
+  ],
+  "skillId": "skillforge:publish-weekly-report",
+  "trustScore": 73,
+  "unresolvedTemplates": []
+}

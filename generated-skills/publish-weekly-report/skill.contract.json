@@ -1,0 +1,165 @@
+{
+  "approvals": [
+    {
+      "reason": "Approval recommended before run write_file because write_file changes files",
+      "risk": "medium",
+      "stepId": "step-4"
+    },
+    {
+      "reason": "Approval recommended before run bash because command `git commit -am \"weekly report\"` can change repository or system state",
+      "risk": "medium",
+      "stepId": "step-6"
+    }
+  ],
+  "id": "skillforge:publish-weekly-report",
+  "name": "Publish Weekly Report",
+  "objective": "Draft the weekly report in reports/weekly-2026-04-01.md from https://status.example.com and get approval before git commit.",
+  "parameters": [
+    {
+      "description": "File or directory path detected in the source run.",
+      "detectionConfidence": 0.9,
+      "example": "reports/weekly-2026-04-01.md",
+      "name": "weekly20260401path",
+      "required": true,
+      "sourceValues": [
+        "reports/weekly-2026-04-01.md"
+      ],
+      "type": "path"
+    },
+    {
+      "description": "Repository reference detected in the source run.",
+      "detectionConfidence": 0.9,
+      "example": "reports/weekly-2026-04-01.md",
+      "name": "weekly20260401MdRepository",
+      "required": true,
+      "sourceValues": [
+        "reports/weekly-2026-04-01.md"
+      ],
+      "type": "repo"
+    },
+    {
+      "description": "Target URL detected in the source run.",
+      "detectionConfidence": 0.9,
+      "example": "https://status.example.com",
+      "name": "targetUrl",
+      "required": true,
+      "sourceValues": [
+        "https://status.example.com"
+      ],
+      "type": "url"
+    },
+    {
+      "description": "File or directory path detected in the source run.",
+      "detectionConfidence": 0.9,
+      "example": "//status.example.com",
+      "name": "statusExamplePath",
+      "required": true,
+      "sourceValues": [
+        "//status.example.com"
+      ],
+      "type": "path"
+    },
+    {
+      "description": "Date value detected in the source run.",
+      "detectionConfidence": 0.9,
+      "example": "2026-04-01",
+      "name": "targetDate",
+      "required": true,
+      "sourceValues": [
+        "2026-04-01"
+      ],
+      "type": "date"
+    }
+  ],
+  "requiredTools": [
+    {
+      "approval": "none",
+      "name": "web_fetch",
+      "operations": [
+        "web_fetch"
+      ],
+      "rationale": "web_fetch reads remote information",
+      "risk": "low"
+    },
+    {
+      "approval": "recommended",
+      "name": "write_file",
+      "operations": [
+        "write_file:reports/weekly-2026-04-01.md"
+      ],
+      "rationale": "write_file changes files",
+      "risk": "medium"
+    },
+    {
+      "approval": "recommended",
+      "name": "bash",
+      "operations": [
+        "git commit -am \"weekly report\""
+      ],
+      "rationale": "command `git commit -am \"weekly report\"` can change repository or system state",
+      "risk": "medium"
+    }
+  ],
+  "schemaVersion": "1.0",
+  "slug": "publish-weekly-report",
+  "source": {
+    "generatedAt": "2026-04-01T21:42:16.404Z",
+    "sourceType": "demo",
+    "title": "Publish weekly report"
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "kind": "instruction",
+      "template": "Draft the weekly report in {{weekly20260401path}} from {{targetUrl}} and get approval before git commit.",
+      "title": "Restate objective"
+    },
+    {
+      "id": "step-2",
+      "kind": "instruction",
+      "template": "Draft the weekly report in {{weekly20260401path}} from {{targetUrl}}.",
+      "title": "User instruction"
+    },
+    {
+      "id": "step-3",
+      "kind": "tool",
+      "template": "Fetch {{targetUrl}}",
+      "title": "Run web_fetch",
+      "tool": "web_fetch"
+    },
+    {
+      "id": "step-4",
+      "kind": "tool",
+      "template": "Modify {{weekly20260401path}} with {\n  \"content\": \"# Weekly Report\\n\\nSummarize incidents and uptime.\",\n  \"path\": \"{{weekly20260401path}}\"\n}",
+      "title": "Run write_file",
+      "tool": "write_file"
+    },
+    {
+      "id": "step-5",
+      "kind": "instruction",
+      "template": "Request approval: Approve the generated report before making a commit.",
+      "title": "Manual approval"
+    },
+    {
+      "id": "step-6",
+      "kind": "tool",
+      "template": "Run command: git commit -am \"weekly report\"",
+      "title": "Run bash",
+      "tool": "bash"
+    }
+  ],
+  "summary": "Draft the weekly report in reports/weekly-2026-04-01.md from https://status.example.com and get approval before git commit.",
+  "verification": {
+    "checklist": [
+      "Resolve all required inputs before execution.",
+      "Confirm approval gates before any medium or high risk operations.",
+      "Run verification commands and inspect outputs before publishing the skill."
+    ],
+    "commands": [],
+    "trustScore": 73,
+    "warnings": [
+      "Approval recommended before run write_file because write_file changes files",
+      "Approval recommended before run bash because command `git commit -am \"weekly report\"` can change repository or system state"
+    ]
+  }
+}

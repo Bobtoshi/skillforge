@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "source": "demo",
+    "title": "Publish weekly report"
+  },
+  "objective": "Draft the weekly report in reports/weekly-2026-04-01.md from https://status.example.com and get approval before git commit.",
+  "steps": [
+    {
+      "kind": "message",
+      "role": "user",
+      "content": "Draft the weekly report in reports/weekly-2026-04-01.md from https://status.example.com."
+    },
+    {
+      "kind": "tool",
+      "tool": "web_fetch",
+      "input": {
+        "url": "https://status.example.com"
+      }
+    },
+    {
+      "kind": "tool",
+      "tool": "write_file",
+      "input": {
+        "path": "reports/weekly-2026-04-01.md",
+        "content": "# Weekly Report\n\nSummarize incidents and uptime."
+      }
+    },
+    {
+      "kind": "approval",
+      "reason": "Approve the generated report before making a commit."
+    },
+    {
+      "kind": "tool",
+      "tool": "bash",
+      "input": {
+        "command": "git commit -am \"weekly report\""
+      }
+    }
+  ]
+}

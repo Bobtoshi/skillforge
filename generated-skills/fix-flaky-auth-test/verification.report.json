@@ -1,0 +1,21 @@
+{
+  "issues": [
+    {
+      "level": "warning",
+      "message": "1 approval gate(s) must be acknowledged before execution."
+    }
+  ],
+  "missingInputs": [],
+  "ok": true,
+  "renderedSteps": [
+    "Fix the flaky test in tests/auth.spec.ts and verify it with npm test -- auth.",
+    "Fix the flaky test in tests/auth.spec.ts and make sure npm test -- auth passes.",
+    "Read tests/auth.spec.ts",
+    "Modify tests/auth.spec.ts with {\n  \"instruction\": \"Replace the fixed sleep with a waitFor assertion.\",\n  \"path\": \"tests/auth.spec.ts\"\n}",
+    "Run command: npm test -- auth",
+    "Collect artifact tests/auth.spec.ts: Updated flaky test with deterministic waiting."
+  ],
+  "skillId": "skillforge:fix-flaky-auth-test",
+  "trustScore": 92,
+  "unresolvedTemplates": []
+}

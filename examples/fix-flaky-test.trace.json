@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.0",
+  "metadata": {
+    "source": "demo",
+    "title": "Fix flaky auth test"
+  },
+  "objective": "Fix the flaky test in tests/auth.spec.ts and verify it with npm test -- auth.",
+  "steps": [
+    {
+      "kind": "message",
+      "role": "user",
+      "content": "Fix the flaky test in tests/auth.spec.ts and make sure npm test -- auth passes."
+    },
+    {
+      "kind": "tool",
+      "tool": "read_file",
+      "input": {
+        "path": "tests/auth.spec.ts"
+      }
+    },
+    {
+      "kind": "tool",
+      "tool": "edit_file",
+      "input": {
+        "path": "tests/auth.spec.ts",
+        "instruction": "Replace the fixed sleep with a waitFor assertion."
+      }
+    },
+    {
+      "kind": "tool",
+      "tool": "bash",
+      "input": {
+        "command": "npm test -- auth"
+      }
+    },
+    {
+      "kind": "artifact",
+      "path": "tests/auth.spec.ts",
+      "summary": "Updated flaky test with deterministic waiting."
+    }
+  ]
+}

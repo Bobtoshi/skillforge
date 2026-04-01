@@ -1,0 +1,129 @@
+{
+  "approvals": [
+    {
+      "reason": "Approval recommended before run edit_file because edit_file changes files",
+      "risk": "medium",
+      "stepId": "step-4"
+    }
+  ],
+  "id": "skillforge:fix-flaky-auth-test",
+  "name": "Fix Flaky Auth Test",
+  "objective": "Fix the flaky test in tests/auth.spec.ts and verify it with npm test -- auth.",
+  "parameters": [
+    {
+      "description": "File or directory path detected in the source run.",
+      "detectionConfidence": 0.99,
+      "example": "tests/auth.spec.ts",
+      "name": "authSpecPath",
+      "required": true,
+      "sourceValues": [
+        "tests/auth.spec.ts"
+      ],
+      "type": "path"
+    },
+    {
+      "description": "Repository reference detected in the source run.",
+      "detectionConfidence": 0.99,
+      "example": "tests/auth.spec.ts",
+      "name": "authSpecTsRepository",
+      "required": true,
+      "sourceValues": [
+        "tests/auth.spec.ts"
+      ],
+      "type": "repo"
+    }
+  ],
+  "requiredTools": [
+    {
+      "approval": "none",
+      "name": "read_file",
+      "operations": [
+        "read_file:tests/auth.spec.ts"
+      ],
+      "rationale": "read_file is a bounded trace step",
+      "risk": "low"
+    },
+    {
+      "approval": "recommended",
+      "name": "edit_file",
+      "operations": [
+        "edit_file:tests/auth.spec.ts"
+      ],
+      "rationale": "edit_file changes files",
+      "risk": "medium"
+    },
+    {
+      "approval": "none",
+      "name": "bash",
+      "operations": [
+        "npm test -- auth"
+      ],
+      "rationale": "command `npm test -- auth` looks read-only or verification-focused",
+      "risk": "low"
+    }
+  ],
+  "schemaVersion": "1.0",
+  "slug": "fix-flaky-auth-test",
+  "source": {
+    "generatedAt": "2026-04-01T21:42:16.373Z",
+    "sourceType": "demo",
+    "title": "Fix flaky auth test"
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "kind": "instruction",
+      "template": "Fix the flaky test in {{authSpecPath}} and verify it with npm test -- auth.",
+      "title": "Restate objective"
+    },
+    {
+      "id": "step-2",
+      "kind": "instruction",
+      "template": "Fix the flaky test in {{authSpecPath}} and make sure npm test -- auth passes.",
+      "title": "User instruction"
+    },
+    {
+      "id": "step-3",
+      "kind": "tool",
+      "template": "Read {{authSpecPath}}",
+      "title": "Run read_file",
+      "tool": "read_file"
+    },
+    {
+      "id": "step-4",
+      "kind": "tool",
+      "template": "Modify {{authSpecPath}} with {\n  \"instruction\": \"Replace the fixed sleep with a waitFor assertion.\",\n  \"path\": \"{{authSpecPath}}\"\n}",
+      "title": "Run edit_file",
+      "tool": "edit_file"
+    },
+    {
+      "id": "step-5",
+      "kind": "verification",
+      "template": "Run command: npm test -- auth",
+      "title": "Verify with bash",
+      "tool": "bash"
+    },
+    {
+      "id": "step-6",
+      "kind": "verification",
+      "template": "Collect artifact {{authSpecPath}}: Updated flaky test with deterministic waiting.",
+      "title": "Capture artifact"
+    }
+  ],
+  "summary": "Fix the flaky test in tests/auth.spec.ts and verify it with npm test -- auth.",
+  "verification": {
+    "checklist": [
+      "Resolve all required inputs before execution.",
+      "Confirm approval gates before any medium or high risk operations.",
+      "Run verification commands and inspect outputs before publishing the skill."
+    ],
+    "commands": [
+      "npm test -- auth",
+      "Collect artifact {{authSpecPath}}: Updated flaky test with deterministic waiting."
+    ],
+    "trustScore": 92,
+    "warnings": [
+      "Approval recommended before run edit_file because edit_file changes files"
+    ]
+  }
+}
